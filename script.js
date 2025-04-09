@@ -4,8 +4,20 @@ let computerScore = 0;
 function getComputerChoice(){
     //Sortear um valor aleatorio e guardar em uma variavel
     let randomNumber = Math.floor(Math.random() * 3);
-    //Retornar essa variavel
-    return randomNumber;
+    //Variavel o valor de rock, paper ou scissors
+    let computerPlay;
+    //Se o numero sorteado for 0 variavel recebe = rock
+    //Se o numero sorteado for 1 variavel recebe = paper
+    //Se nao for nenhum deles variavel recebe = scissors
+    if(randomNumber === 0){
+        computerPlay = "Rock";
+    }else if(randomNumber === 1){
+        computerPlay = "Paper";
+    }else {
+        computerPlay = "Scissors"
+    }
+    //Retornar a variavel
+    return computerPlay;
 }
 
 function getHumanChoice(){
@@ -14,3 +26,4 @@ function getHumanChoice(){
     //Retornar a escolha do jogador
     return number;
 }
+
