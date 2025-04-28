@@ -12,68 +12,95 @@ function getComputerChoice(){
     return computerPlay;
 }
 
+let playerScore = 0;
+let computerScore = 0;
+
 function playGame(){
-    let humanScore = 0;
-    let computerScore = 0;
+    const choice = document.querySelector("#choice");
+    let playerChoiceTxt = document.createElement("span");
+    let computerChoiceTxt = document.createElement("span");
+    let result = document.createElement("span");
+
+    const results = document.querySelector("#results");
+
+    const score = document.querySelector("#score");
+    let plrScore = document.createElement("p");
+    let cptScore = document.createElement("p");
+
+    const winner = document.querySelector("#winner");
+    const winnerTxt = document.createElement("span");
 
     const buttons = document.querySelectorAll("button");
-    buttons.forEach((button) => {
+    buttons.forEach((button) => {        
         button.addEventListener("click", () => {
-            const hcLowerCase = button.id;
+            const playerChoice = button.id;
             const computerChoice = getComputerChoice();
-            console.log(`\nComputer choice: ${computerChoice}!`);
-            console.log(`Player choice: ${hcLowerCase}!`);
 
-            switch(hcLowerCase){
+            playerChoiceTxt.textContent = `Player choice: ${playerChoice}! `;
+            computerChoiceTxt.textContent = `Computer choice: ${computerChoice}!`;
+            choice.appendChild(playerChoiceTxt);
+            choice.appendChild(computerChoiceTxt);            
+
+            switch(playerChoice){
             case "rock":
                 if(computerChoice === "rock"){
-                    console.log("Draw!");
+                    result.textContent = "Draw!";
                 }else if(computerChoice === "paper"){
-                    console.log("You lose! Paper beats Rock");
+                    result.textContent = "You lose! Paper beats Rock";
                     computerScore++;
                 }else{
-                    console.log("You win! Rock beats Scissors");
-                    humanScore++;
+                    result.textContent = "You win! Rock beats Scissors";
+                    playerScore++;
                 }
             break;
     
             case "paper":
                 if(computerChoice === "rock"){
-                    console.log("You win! Paper beats Rock");
-                    humanScore++;
+                    result.textContent = "You win! Paper beats Rock";
+                    playerScore++;
                 }else if(computerChoice === "paper"){
-                    console.log("Draw!");
+                    result.textContent = "Draw!";
                 }else{
-                    console.log("You lose! Scissors beats Paper");
+                    result.textContent = "You lose! Scissors beats Paper";
                     computerScore++;
                 }
             break;
     
             case "scissors":
                 if(computerChoice === "rock"){
-                    console.log("You lose! Rock beats Scissors");
+                    result.textContent = "You lose! Rock beats Scissors";
                     computerScore++;
                 }else if(computerChoice === "paper"){
-                    console.log("You win! Scissors beats Paper");
-                    humanScore++;
+                    result.textContent = "You win! Scissors beats Paper";
+                    playerScore++;
                 }else{
-                    console.log("Draw!");
+                    result.textContent = "Draw!";
                 }
             break;
         }
+        results.appendChild(result);
+        plrScore.textContent = `\nPlayer score: ${playerScore}`;
+        cptScore.textContent = `Computer score: ${computerScore}`;
+        score.appendChild(plrScore);
+        score.appendChild(cptScore);
+
+        if(playerScore === 5){
+            winnerTxt.textContent = "You WIN!";
+            winner.appendChild(winnerTxt);
+            score.removeChild(plrScore);
+            score.removeChild(computerScore);
+        }else if(computerScore === 5){
+            winnerTxt.textContent = "Computer WINS!";
+            winner.appendChild(winnerTxt);
+            score.removeChild(plrScore);
+            score.removeChild(cptScore);
+        }
         });
-    });
+    });    
 
-    console.log(`\nPlayer score: ${humanScore}`);
-    console.log(`Computer score: ${computerScore}`);
-
-    if(humanScore > computerScore){
-        console.log("You WIN!");
-    }else if(computerScore > humanScore){
-        console.log("Computer WINS!");
-    }else{
-        console.log("DRAW!");
-    }
+    choice.removeChild(playerChoiceTxt);
+    choice.removeChild(computerChoiceTxt);
+    results.removeChild(result);    
 }
 
 playGame();
