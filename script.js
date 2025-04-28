@@ -12,23 +12,19 @@ function getComputerChoice(){
     return computerPlay;
 }
 
-function getHumanChoice(){
-    let humanPlay = prompt("Escolha sua jogada:\nRock 🪨\nPaper 📜\nScissors ✂️");
-    return humanPlay;
-}
-
-
-
 function playGame(){
     let humanScore = 0;
     let computerScore = 0;
 
-    function playRound(humanChoice, computerChoice){
-        const hcLowerCase = humanChoice.toLowerCase();
-        console.log(`\nComputer choice: ${computerChoice}!`);
-        console.log(`Player choice: ${hcLowerCase}!`);
+    const buttons = document.querySelectorAll("button");
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const hcLowerCase = button.id;
+            const computerChoice = getComputerChoice();
+            console.log(`\nComputer choice: ${computerChoice}!`);
+            console.log(`Player choice: ${hcLowerCase}!`);
 
-        switch(hcLowerCase){
+            switch(hcLowerCase){
             case "rock":
                 if(computerChoice === "rock"){
                     console.log("Draw!");
@@ -65,13 +61,11 @@ function playGame(){
                 }
             break;
         }
-    }
+        });
+    });
 
-    for(let i = 0; i < 5; i++){
-        playRound(getHumanChoice(), getComputerChoice());
-        console.log(`\nPlayer score: ${humanScore}`);
-        console.log(`Computer score: ${computerScore}`);
-    }
+    console.log(`\nPlayer score: ${humanScore}`);
+    console.log(`Computer score: ${computerScore}`);
 
     if(humanScore > computerScore){
         console.log("You WIN!");
